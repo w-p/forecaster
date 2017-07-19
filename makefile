@@ -14,4 +14,4 @@ dev:
 	docker run -it --rm -p 80:80 willp/forecaster:latest
 
 push:
-	docker push willp/forecaster:lastest
+	docker push willp/forecaster:latest
