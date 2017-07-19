@@ -1,0 +1,5 @@
+#! /bin/sh
+
+exec nginx \
+    -c /srv/nginx.conf \
+    -g 'daemon off;'

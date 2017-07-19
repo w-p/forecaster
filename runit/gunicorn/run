@@ -1,0 +1,9 @@
+#! /bin/sh
+
+. /srv/venv/bin/activate
+
+exec gunicorn \
+    --timeout 60 \
+    --chdir=/srv/app/ \
+    --bind=127.0.0.1:8080 \
+    server:app
