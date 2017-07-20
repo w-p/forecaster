@@ -1,5 +1,7 @@
 # Forecaster
-##### A dashboard showing the forecast and tides.
+#### A dashboard showing the forecast and tides.
+
+![Screenshot](https://github.com/w-p/forecaster/blob/master/screenshot.png)
 
 The frontend is:
 - written in `javascript`
