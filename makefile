@@ -3,19 +3,21 @@
 clean:
 	docker image prune -f
 
-build-test:
+build-x86:
 	cd ./frontend && npm run build
-	docker build -t willp/forecaster:latest -f Dockerfile.x86 .
+	docker build -t willp/forecaster:x86 -f Dockerfile.x86 .
 
-build-dist:
-	cd ./frontend && npm run build
-	docker build -t willp/forecaster:latest -f Dockerfile.armv6 .
+build-arm:
+	docker build -t willp/forecaster:arm32v6 -f Dockerfile.arm32v6 .
 
-run:
-	docker run -d -p 80:80 willp/forecaster:latest
+run-x86:
+	docker run -d -p 80:80 willp/forecaster:x86
 
-dev:
-	docker run -it --rm -p 80:80 willp/forecaster:latest
+run-arm:
+	docker run -d -p 80:80 willp/forecaster:arm32v6
 
-push:
-	docker push willp/forecaster:latest
+push-x86:
+	docker push willp/forecaster:x86
+
+push-arm:
+	docker push willp/forecaster:arm32v6
