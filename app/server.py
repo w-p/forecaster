@@ -19,7 +19,7 @@ tides = 'https://api.weather.gov/products/types/TID/locations/{}'
 def get_geocoordinates(city, state):
     logger.info('get_geocoordinates({}, {})'.format(city, state))
     url = geocode.format(city, state)
-    res = requests.get(url)
+    res = requests.get(url, verify=False)
     logger.info('- google response: {}'.format(res.status_code))
     if res.status_code != 200:
         raise Exception(
@@ -36,7 +36,7 @@ def get_geocoordinates(city, state):
 def get_weather(latitude, longitude):
     logger.info('get_weather({}, {})'.format(latitude, longitude))
     url = weather.format(latitude, longitude)
-    res = requests.get(url)
+    res = requests.get(url, verify=False)
     logger.info('- noaa response: {}'.format(res.status_code))
     if res.status_code != 200:
         raise Exception(
@@ -54,7 +54,7 @@ def get_forecast(url):
     if url is None:
         return []
     logger.info('get_forecast({})'.format(url))
-    res = requests.get(url)
+    res = requests.get(url, verify=False)
     logger.info('- noaa response: {}'.format(res.status_code))
     if res.status_code != 200:
         raise Exception(
@@ -127,7 +127,7 @@ def get_tide_report(location_id):
     if location_id is None:
         return {}
     logger.info('get_tide_report({})'.format(location_id))
-    res = requests.get(tides.format(location_id))
+    res = requests.get(tides.format(location_id), verify=False)
     logger.info('- noaa response: {}'.format(res.status_code))
     if res.status_code != 200:
         raise Exception(
@@ -137,7 +137,7 @@ def get_tide_report(location_id):
     features = data.get('features', None)
     if features:
         url = features[0]['@id']
-        res = requests.get(url)
+        res = requests.get(url, verify=False)
         logger.info('- noaa response: {}'.format(res.status_code))
         data = res.json()
         return parse_tide_report(data.get('productText'))

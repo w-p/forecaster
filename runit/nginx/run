@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/ash
 
 exec nginx \
     -c /srv/nginx.conf \

@@ -1,11 +1,11 @@
-#! /bin/bash
+#! /bin/ash
 
-function on-terminate () {
+on_terminate () {
     for svc in $(ls -d /etc/service/*); do
         sv stop $svc
     done
 }
 
-trap "on-terminate; exit" SIGTERM
+trap "on_terminate; exit" SIGTERM
 runsvdir /etc/service &
 wait

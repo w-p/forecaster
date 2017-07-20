@@ -1,0 +1,14 @@
+[Unit]
+Description=Forecaster
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+Restart=always
+ExecStartPre=-/usr/bin/docker rm -f willp/forecaster:latest
+ExecStartPre=/usr/bin/docker pull willp/forecaster:latest
+ExecStart=/usr/bin/docker run -d -p 80:80 willp/forecaster:latest
+
+[Install]
+WantedBy=multi-user.target

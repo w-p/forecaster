@@ -1,0 +1,29 @@
+FROM arm32v6/alpine:latest
+
+MAINTAINER Will Palmer <will@steelhive.com>
+
+ADD ./requirements.txt /srv/
+
+RUN apk -q update && \
+    apk -q add \
+        runit \
+        nginx \
+        python3 && \
+    pip3 install --upgrade pip && \
+    pip3 install virtualenv && \
+    virtualenv -p python3 /srv/venv && \
+    . /srv/venv/bin/activate && \
+    pip3 install -r /srv/requirements.txt && \
+    deactivate && \
+    mkdir -p /run/nginx
+
+ADD ./app /srv/app/
+ADD ./nginx.conf /srv/
+ADD ./runit /etc/service/
+ADD ./entrypoint.sh /usr/bin/
+ADD ./frontend/dist /srv/frontend/
+ADD ./proxy_params /etc/nginx/
+
+EXPOSE 80
+
+ENTRYPOINT ["entrypoint.sh"]
